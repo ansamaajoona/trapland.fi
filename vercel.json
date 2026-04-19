@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/imagepixelator",
+      "destination": "https://imagepixelator.vercel.app/imagepixelator/"
+    },
+    {
+      "source": "/imagepixelator/:path*",
+      "destination": "https://imagepixelator.vercel.app/imagepixelator/:path*"
+    }
+  ]
+}
