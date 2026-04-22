@@ -6,13 +6,10 @@ import About from '@/app/components/about/About';
 import Experience from '@/app/components/experience/Experience';
 import Projects from '@/app/components/projects/Projects';
 import Contact from '@/app/components/contact/Contact';
-import ReactGA from 'react-ga4';
 
 const SECTIONS = ['about', 'experience', 'projects', 'contact'];
 
 export default function HomeClient() {
-  ReactGA.send({ hitType: "pageview", page: "/", title: "Home page visit" });
-
   const [mousePosition, setMousePosition] = useState({ x: -9999, y: -9999 });
   const [activeSection, setActiveSection] = useState('about');
 
