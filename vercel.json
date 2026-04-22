@@ -11,7 +11,7 @@
 
     { 
       "source": "/faceitfinder",
-      "destination": "https://faceit-finder-chi.vercel.app/faceitfinder/"
+      "destination": "https://faceit-finder-chi.vercel.app/faceitfinder"
     },
     {
       "source": "/faceitfinder/:path*",
