@@ -1,5 +1,6 @@
 import HomeClient from '@/app/components/HomeClient';
 import Head from 'next/head';
+import ReactGA from 'react-ga4';
 
 export const Home = () => {
 
@@ -12,6 +13,11 @@ export const Home = () => {
     name: 'trapland.fi',
   };
 
+  ReactGA.initialize([
+    {
+      trackingId: process.env.GA_TRACKING_ID ?? '',
+    },
+  ]);
    return (
     <>
       <Head>
