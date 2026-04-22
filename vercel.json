@@ -7,6 +7,15 @@
     {
       "source": "/imagepixelator/:path*",
       "destination": "https://imagepixelator.vercel.app/imagepixelator/:path*"
+    },
+
+    { 
+      "source": "/faceitfinder",
+      "destination": "https://faceit-finder-omlg.vercel.app/faceitfinder/"
+    },
+    {
+      "source": "/faceitfinder/:path*",
+      "destination": "https://faceit-finder-omlg.vercel.app/faceitfinder/:path*"
     }
   ]
 }
