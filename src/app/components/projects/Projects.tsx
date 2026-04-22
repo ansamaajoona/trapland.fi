@@ -14,7 +14,7 @@ interface ProjectItem {
 const projects: ProjectItem[] = [
   {
     title: 'FACEIT Finder',
-    url: 'https://faceit-finder-omlg.vercel.app/',
+    url: 'https://trapland.fi/faceitfinder/',
     description: "A full-stack web app for looking up FACEIT statistics. Search by Steam ID, Steam vanity URL, or FACEIT nickname to view player stats, ELO, match history, K/D ratios, ban status, and performance charts. Utilizes FACEIT and Steam API's.",
     image: '/project-faceitfinder.png',
     technologies: ['Next.js', 'TypeScript', 'Tailwind CSS'],
