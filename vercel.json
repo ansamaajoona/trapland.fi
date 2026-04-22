@@ -11,11 +11,11 @@
 
     { 
       "source": "/faceitfinder",
-      "destination": "https://faceit-finder-omlg.vercel.app/faceitfinder/"
+      "destination": "https://faceit-finder-chi.vercel.app/faceitfinder/"
     },
     {
       "source": "/faceitfinder/:path*",
-      "destination": "https://faceit-finder-omlg.vercel.app/faceitfinder/:path*"
+      "destination": "https://faceit-finder-chi.vercel.app/faceitfinder/:path*"
     }
   ]
 }
