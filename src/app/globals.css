@@ -1,44 +1,291 @@
 @import 'tailwindcss';
 
 @theme inline {
-  --color-primary: #0a192f;
-  --color-secondary: #64ffda;
-  --color-navy-light: #112240;
-  --font-sans: var(--font-inter);
-  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas,
-    'Liberation Mono', 'Courier New', monospace;
+  --color-void: #000000;
+  --color-dust: #4a4a4a;
+  --color-frost: #8a8a86;
+  --color-haze: #b9b6ac;
+  --color-ivory: #e6e2d6;
+  --color-signal: #ffd594;
+
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-signature: var(--font-script), cursive;
+  --font-mono: var(--font-departure), ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  --text-mega: clamp(2.5rem, 0.2rem + 8.8vw, 8.75rem);
+  --text-mega--line-height: 0.84;
+  --text-odometer: clamp(6rem, 2rem + 7vw, 10.5rem);
+  --text-odometer--line-height: 1;
+  --text-stack: clamp(2rem, 0.5rem + 6.4vw, 7rem);
+  --text-stack--line-height: 1.02;
+  --text-year: clamp(2.5rem, 1.6rem + 2.6vw, 4.25rem);
+  --text-year--line-height: 0.85;
+  --text-close: clamp(1.625rem, 0.4rem + 4.6vw, 5rem);
+  --text-close--line-height: 1;
+  --text-statement: clamp(1.75rem, 1rem + 2.2vw, 3rem);
+  --text-statement--line-height: 1.15;
+  --text-role: clamp(1.5rem, 1.1rem + 1.2vw, 2.25rem);
+  --text-role--line-height: 1.1;
+  --text-lead: 1.25rem;
+  --text-lead--line-height: 1.55;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.7;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.55;
+  --text-label: 0.6875rem;
+  --text-label--line-height: 1.4;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-html {
-  scroll-behavior: smooth;
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    background: var(--color-void);
+    scroll-behavior: smooth;
+    scrollbar-color: var(--color-dust) var(--color-void);
+    scrollbar-width: thin;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background: var(--color-void);
+    color: var(--color-haze);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: var(--color-signal);
+    color: var(--color-void);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 4px;
+  }
 }
 
-body {
-  background-color: #0a192f;
-  color: rgb(148 163 184); /* slate-400 */
-  font-family: var(--font-inter, Inter, sans-serif);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@layer components {
+  .display {
+    font-weight: 900;
+    font-stretch: 125%;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+
+  .label {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    line-height: var(--text-label--line-height);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-frost);
+  }
+
+  /* Runs past the right edge of the viewport, out of the content shell. */
+  .leader {
+    display: flex;
+    margin-right: calc(50% - 50vw);
+    overflow: hidden;
+  }
+  .leader::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background-image: radial-gradient(circle at 1px 1px, var(--color-dust) 1px, transparent 1.2px);
+    background-size: 8px 2px;
+  }
+
+  .link {
+    color: var(--color-ivory);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color: var(--color-dust);
+    text-underline-offset: 0.3em;
+    transition:
+      color 160ms var(--ease-out-expo),
+      text-decoration-color 160ms var(--ease-out-expo);
+  }
+  .link:hover {
+    color: var(--color-signal);
+    text-decoration-color: var(--color-signal);
+  }
+  .link svg {
+    transition: transform 200ms var(--ease-out-expo);
+  }
+  .link:hover svg,
+  .link:focus-visible svg {
+    transform: translate(0.15em, -0.15em);
+  }
+
+  /* Daylight from the top; Oulu's temperature tints it and fog veils it. */
+  .atmosphere {
+    --tint: 230 226 214;
+    --fog: 0;
+    background:
+      linear-gradient(rgb(150 170 200 / 0.2), transparent 70%),
+      radial-gradient(45rem 32rem at 86% -6%, rgb(255 238 205 / 0.2), transparent 70%),
+      radial-gradient(90rem 55rem at 18% -10%, rgb(var(--tint) / 0.12), transparent 60%),
+      radial-gradient(70rem 45rem at 95% 110%, rgb(255 213 148 / 0.035), transparent 60%),
+      linear-gradient(rgb(170 170 164 / var(--fog)), rgb(170 170 164 / var(--fog))),
+      radial-gradient(ellipse at 50% 45%, transparent 55%, rgb(0 0 0 / 0.55) 100%);
+    transition: --fog 3s var(--ease-out-expo);
+  }
+
+  .signature {
+    color: var(--color-signal);
+    transition: color 160ms var(--ease-out-expo);
+  }
+  /* The ink glistens under the pointer, as if still wet: an invitation to sign again. */
+  .signed[data-phase='done'] button:is(:hover, :focus-visible) .signature {
+    color: color-mix(in oklab, var(--color-signal) 55%, var(--color-ivory));
+  }
+  /* Fresh ink just behind the nib, drying to signal. */
+  .sign-wet {
+    fill: var(--color-ivory);
+    opacity: 0.85;
+  }
+  .signed[data-phase='done'] .sign-ink {
+    mask: none;
+  }
+  .signed[data-phase='done'] .sign-wet {
+    display: none;
+  }
+  /*
+   * The name stretches in: each letter starts thin and condensed below its
+   * line's baseline and widens into the expanded black cut as it rises,
+   * left to right, line by line. Only the start is given, so each letter
+   * lands on whatever width the breakpoint sets.
+   */
+  .signed-line {
+    display: block;
+    white-space: nowrap;
+    clip-path: inset(-50% -50% 0 -50%);
+  }
+  .signed-letter {
+    display: inline-block;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .signed:not([data-phase='idle']) .signed-letter {
+      animation: stretch-in 1000ms var(--ease-out-expo) both;
+      animation-delay: calc(var(--line) * 180ms + var(--i) * 45ms);
+    }
+    /* The rest of the hero follows once the name has mostly landed. */
+    .hero:has(.signed:not([data-phase='idle'])) .hero-follow {
+      animation: follow-in 800ms var(--ease-out-expo) both;
+      animation-delay: calc(850ms + var(--d) * 80ms);
+    }
+    /* Hidden until hydrated; the delayed animation still shows it if the script never runs. */
+    .signed[data-phase='idle'] .signed-name,
+    .hero:has(.signed[data-phase='idle']) .hero-follow {
+      opacity: 0;
+      animation: show-name 0s 3s forwards;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .route {
+      height: calc(100svh + var(--legs) * 75svh);
+    }
+  }
+
+  .odometer-col {
+    display: inline-block;
+    height: 1em;
+    overflow: hidden;
+  }
+  .odometer-strip {
+    display: flex;
+    flex-direction: column;
+    transition: transform 900ms var(--ease-out-expo);
+  }
+  .odometer-strip > span {
+    height: 1em;
+  }
+
+  .track-bar {
+    background: color-mix(in oklab, var(--color-haze) 35%, transparent);
+    transition: background-color 400ms var(--ease-out-expo);
+  }
+  .track-bar.is-active {
+    background: var(--color-signal);
+  }
+
+  .route-panel {
+    opacity: 0;
+    transform: translateY(1rem);
+    pointer-events: none;
+    transition:
+      opacity 450ms var(--ease-out-expo),
+      transform 600ms var(--ease-out-expo);
+  }
+  .route-panel.is-active {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .stack-glyph {
+    font-stretch: 92%;
+    font-weight: 760;
+    color: color-mix(in oklab, var(--color-ivory) 45%, var(--color-dust));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .signed .sign-ink {
+      mask: none;
+    }
+    .signed .sign-wet {
+      display: none;
+    }
+    .odometer-strip,
+    .track-bar,
+    .route-panel {
+      transition-duration: 0ms;
+    }
+    .route-panel {
+      transform: none;
+    }
+  }
 }
 
-::selection {
-  background-color: rgba(100, 255, 218, 0.2);
-  color: #e2e8f0;
+@keyframes show-name {
+  to {
+    opacity: 1;
+  }
 }
 
-::-webkit-scrollbar {
-  width: 6px;
+@keyframes stretch-in {
+  from {
+    opacity: 0;
+    translate: 0 0.32em;
+    font-stretch: 62%;
+    font-weight: 300;
+  }
 }
 
-::-webkit-scrollbar-track {
-  background: #0a192f;
+@keyframes follow-in {
+  from {
+    opacity: 0;
+    translate: 0 0.75rem;
+  }
 }
 
-::-webkit-scrollbar-thumb {
-  background: #233554;
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #2d4a7a;
+@property --fog {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
 }
